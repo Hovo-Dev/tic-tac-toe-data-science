@@ -39,43 +39,28 @@ def replace_b_values(df):
                      'bottom-left', 'bottom-middle', 'bottom-right']
 
     def fill_row(row):
-        # Check for X and O count
-        x_count = (row[board_columns] == 'x').sum()
-        o_count = (row[board_columns] == 'o').sum()
         blanks = [col for col in board_columns if row[col] == 'b']
 
         # If result is positive, X must win
         if row['result'] == 'positive':
             for col in blanks:
-                # First priority: Can X win in this move?
+                # First, try to win with X
                 row[col] = 'x'
                 if check_win(row, 'x'):
-                    return row
+                    return row  # X wins, return the updated row
 
-                # Otherwise, try blocking O if O can win in the next move
+                # Otherwise, check if O can win and block it
                 row[col] = 'o'
                 if check_win(row, 'o'):
                     row[col] = 'o'  # Block O
                 else:
-                    row[col] = 'b'  # Reset blank if no win
-
-            # After trying to block O and looking for X's win, fill remaining blanks with X
-            for col in blanks:
-                if row[col] == 'b':
-                    row[col] = 'x'
-        else:
-            # If the result is negative, prioritize O's win or blocking X
-            for col in blanks:
-                row[col] = 'o' if x_count > o_count else 'x'
-                x_count += 1 if row[col] == 'x' else 0
-                o_count += 1 if row[col] == 'o' else 0
+                    row[col] = 'x'  # Reset to X if no need to block
 
         return row
 
     df = df.apply(fill_row, axis=1)
 
     return df
-
 
 def print_dataset_info(df, stage="Initial", n_rows = 100):
     """Print dataset info and show occurrences of 'b' (blank) cells."""
