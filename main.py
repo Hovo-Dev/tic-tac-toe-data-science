@@ -15,22 +15,35 @@ def load_tic_tac_toe_data(n_rows=100):
     return df
 
 def check_win(board, player):
-    """Check if the player ('x' or 'o') has a winning combination in the board."""
-    win_conditions = [
-        [board['top-left'], board['top-middle'], board['top-right']],  # Top row
-        [board['middle-left'], board['middle-middle'], board['middle-right']],  # Middle row
-        [board['bottom-left'], board['bottom-middle'], board['bottom-right']],  # Bottom row
-        [board['top-left'], board['middle-left'], board['bottom-left']],  # Left column
-        [board['top-middle'], board['middle-middle'], board['bottom-middle']],  # Middle column
-        [board['top-right'], board['middle-right'], board['bottom-right']],  # Right column
-        [board['top-left'], board['middle-middle'], board['bottom-right']],  # Diagonal 1
-        [board['top-right'], board['middle-middle'], board['bottom-left']]  # Diagonal 2
+    board_array = np.array([
+        [board['top-left'], board['top-middle'], board['top-right']],
+        [board['middle-left'], board['middle-middle'], board['middle-right']],
+        [board['bottom-left'], board['bottom-middle'], board['bottom-right']]
+    ])
+
+    win_indices = [
+        [(0, 0), (0, 1), (0, 2)],
+        [(1, 0), (1, 1), (1, 2)],
+        [(2, 0), (2, 1), (2, 2)],
+        [(0, 0), (1, 0), (2, 0)],
+        [(0, 1), (1, 1), (2, 1)],
+        [(0, 2), (1, 2), (2, 2)],
+        [(0, 0), (1, 1), (2, 2)],
+        [(0, 2), (1, 1), (2, 0)]
     ]
 
-    return any(
-        [line == [player, player, 'b'] or line == ['b', player, player] or line == [player, 'b', player] for line in
-         win_conditions])
+    patterns = [
+        np.array([player, player, 'b']),
+        np.array(['b', player, player]),
+        np.array([player, 'b', player])
+    ]
 
+    for indices in win_indices:
+        line = np.array([board_array[i, j] for i, j in indices])
+        if any(np.array_equal(line, pattern) for pattern in patterns):
+            return True
+
+    return False
 
 def replace_b_values(df):
     """Replace 'b' (blank) with the appropriate value ('x' or 'o') ensuring X's win for positive results."""
@@ -77,7 +90,6 @@ def print_dataset_info(df, stage="Initial", n_rows = 100):
     print(b_counts)
 
     print("\n--- End of Info ---")
-
 
 def plot_tic_tac_toe_analysis(df):
     """Display multiple plots for Tic-Tac-Toe game data in the same window."""
@@ -127,6 +139,7 @@ def main(n_rows=100):
     """Main function to load, process, and visualize the Tic-Tac-Toe dataset."""
     df = load_tic_tac_toe_data(n_rows)
 
+    plot_tic_tac_toe_analysis(df)
     print_dataset_info(df, "Initial", n_rows)
 
     df = replace_b_values(df)

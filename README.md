@@ -1,11 +1,10 @@
-1. Title: Tic-Tac-Toe Endgame database
+## Title: Tic-Tac-Toe Endgame database
 
-2. Source Information
+### Source Information
    -- Creator: David W. Aha (aha@cs.jhu.edu)
    -- Donor: David W. Aha (aha@cs.jhu.edu)
    -- Date: 19 August 1991
- 
-3. Known Past Usage: 
+### Known Past Usage: 
    1. Matheus,~C.~J., \& Rendell,~L.~A. (1989).  Constructive
       induction on decision trees.  In {\it Proceedings of the
       Eleventh International Joint Conference on Artificial Intelligence} 
@@ -39,7 +38,7 @@
          ternary-valued attributes; similar _relative_ results except that
          IB1's performance degraded more quickly than the others.
 
-4. Relevant Information:
+### Relevant Information:
 
    This database encodes the complete set of possible board configurations
    at the end of tic-tac-toe games, where "x" is assumed to have played
@@ -51,11 +50,11 @@
    simple IB1 instance-based learning algorithm, and the CITRE 
    feature-constructing decision tree algorithm perform well on it.
 
-5. Number of Instances: 958 (legal tic-tac-toe endgame boards)
+### Number of Instances: 958 (legal tic-tac-toe endgame boards)
 
-6. Number of Attributes: 9, each corresponding to one tic-tac-toe square
+### Number of Attributes: 9, each corresponding to one tic-tac-toe square
 
-7. Attribute Information: (x=player x has taken, o=player o has taken, b=blank)
+### Attribute Information: (x=player x has taken, o=player o has taken, b=blank)
 
     1. top-left-square: {x,o,b}
     2. top-middle-square: {x,o,b}
@@ -66,8 +65,8 @@
     7. bottom-left-square: {x,o,b}
     8. bottom-middle-square: {x,o,b}
     9. bottom-right-square: {x,o,b}
-   10. Class: {positive,negative}
+    10. Class: {positive,negative}
 
-8. Missing Attribute Values: None
+### Missing Attribute Values: None
 
-9. Class Distribution: About 65.3% are positive (i.e., wins for "x")
+### Class Distribution: About 65.3% are positive (i.e., wins for "x")

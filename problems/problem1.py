@@ -1,10 +1,11 @@
 import numpy as np
 
-random_array = np.random.randint(0, 1000, 100)
-indices_ending_with_6 = [i for i, num in enumerate(random_array) if str(num).endswith('6')]
-indices_array = np.array(indices_ending_with_6)
+# Create 3 arrays fill 0 in first one, fill 1 in second one and fill 9 in third one.
 
-print("Array:")
-print(random_array)
-print("Elements's index Ending with 6:")
-print(indices_array)
+array_zeros = np.zeros(10, dtype=int)
+array_ones = np.ones(10, dtype=int)
+array_nines = np.full(10, 9, dtype=int)
+
+array_2d = np.vstack((array_zeros, array_ones, array_nines))
+
+print('2D Array:: ', array_2d)
